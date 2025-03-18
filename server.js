@@ -7,6 +7,9 @@ const BUILD_PATH = "./build/server/index.js";
 const DEVELOPMENT = process.env.NODE_ENV === "development";
 const PORT = Number.parseInt(process.env.PORT || "3000");
 
+// Force React DOM to use the Node.js server bundle
+process.env.REACT_DOM_RUNTIME = "node";
+
 const app = express();
 
 app.use(compression());
