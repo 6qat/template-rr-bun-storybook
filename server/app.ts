@@ -8,7 +8,7 @@ declare module 'react-router' {
   }
 }
 
-export const app = express();
+const app = express();
 
 app.use(
   createRequestHandler({
@@ -21,3 +21,5 @@ app.use(
     },
   })
 );
+
+export { app };
