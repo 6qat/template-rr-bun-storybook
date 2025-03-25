@@ -55,5 +55,5 @@ if (DEVELOPMENT) {
 app.use(morgan('tiny'));
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Express server is running on http://localhost:${PORT}`);
 });

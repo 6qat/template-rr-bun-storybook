@@ -1,6 +1,12 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["server.js", "tailwind.config.ts", "vite.config.ts"],
+  "include": [
+    "server.js",
+    "server-elysia.ts",
+    "server-express.js",
+    "tailwind.config.ts",
+    "vite.config.ts"
+  ],
   "compilerOptions": {
     "composite": true,
     "strict": true,
