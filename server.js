@@ -14,16 +14,6 @@ const app = express();
 app.use(compression());
 app.disable('x-powered-by');
 
-/**
- * Handle source map requests by returning an empty source map
- * @param {express.Request} _req - Express request object
- * @param {express.Response} res - Express response object
- */
-const handleSourceMap = (_req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send('{}'); // Return empty source map instead of 204
-};
-
 if (DEVELOPMENT) {
   console.log('Starting development server');
 
@@ -33,12 +23,6 @@ if (DEVELOPMENT) {
 
   // Use Vite's middleware
   app.use(viteDevServer.middlewares);
-
-  // Handle specific source map requests that should be ignored
-  // Placing these after Vite middleware to ensure they're not intercepted
-  app.get('/installHook.js.map', handleSourceMap);
-  app.get('/react_devtools_backend_compact.js.map', handleSourceMap);
-  app.get('/%3Canonymous%20code%3E', handleSourceMap);
 
   /**
    * Catch-all route for development server
@@ -59,11 +43,6 @@ if (DEVELOPMENT) {
   });
 } else {
   console.log('Starting production server');
-
-  // Handle source map requests in production as well
-  app.get('/installHook.js.map', handleSourceMap);
-  app.get('/react_devtools_backend_compact.js.map', handleSourceMap);
-  app.get('/%3Canonymous%20code%3E', handleSourceMap);
 
   app.use(
     '/assets',
