@@ -2,6 +2,7 @@ import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { reactRouterHonoServer } from 'react-router-hono-server/dev';
 
 // https://github.com/remix-run/react-router/issues/12568
 
@@ -24,5 +25,15 @@ export default defineConfig(({ isSsrBuild }) => ({
             'react-dom/server': 'react-dom/server.node',
           },
         },
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  plugins: [
+    tailwindcss(),
+    reactRouter(),
+    tsconfigPaths(),
+    process.env.WEB_SERVER === 'hono' &&
+      reactRouterHonoServer({
+        dev: {
+          exclude: [/^\/(resources)\/.+/],
+        },
+      }),
+  ],
 }));
