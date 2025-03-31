@@ -52,6 +52,23 @@ async function startServer() {
         server.kill('SIGINT');
         process.exit(0);
       });
+    } else if (webServer.toLowerCase() === 'hono') {
+      // Run the Hono server
+      const serverPath = join(__dirname, 'build/server/index.js');
+      console.log(`Running: ${serverPath}`);
+
+      // Using Bun to run the JavaScript file
+      const server = spawn('bun', [serverPath], { stdio: 'inherit' });
+
+      // server.on('error', (err) => {
+      //   console.error('Failed to start Hono server:', err);
+      //   process.exit(1);
+      // });
+
+      process.on('SIGINT', () => {
+        server.kill('SIGINT');
+        process.exit(0);
+      });
     } else {
       console.error(`Unknown web server type: ${webServer}`);
       console.error(
